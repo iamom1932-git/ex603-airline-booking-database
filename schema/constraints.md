@@ -131,9 +131,3 @@ A booking cannot have a negative fare. Zero can be permitted because legitimate 
 `bookings.passenger_id`, `bookings.flight_id`, `flight_routes.flight_id`, and `flight_routes.airport_id` should be NOT NULL.
 
 Each relationship is mandatory for the corresponding record to have meaning.
-
----
-
-## Integrity Principle
-
-The design places rules that are fundamental to the correctness of the data in the database rather than relying exclusively on application code. This means that invalid relationships, duplicate identifiers, impossible capacities, and negative fares are prevented regardless of which application or client attempts to modify the database.
