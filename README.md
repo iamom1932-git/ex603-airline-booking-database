@@ -22,20 +22,11 @@ The database consists of five relations:
 * **Airports** - the descriptive catalog of airports.
 * **Flight Routes** - the junction relation connecting flights and airports through a many-to-many relationship.
 
+The schema uses primary keys to provide stable identifiers and foreign keys to maintain valid relationships. Historical bookings are protected from accidental deletion by using restrictive foreign-key behavior, while dependent route records can be removed with their parent flight when appropriate.
+
 ### Entity Relationship Diagram
 
 ![Airline Booking ERD](schema/erd.png)
-
-The schema uses primary keys to provide stable identifiers and foreign keys to maintain valid relationships. Historical bookings are protected from accidental deletion by using restrictive foreign-key behavior, while dependent route records can be removed with their parent flight when appropriate.
-
-## Unit 1 Deliverables
-
-| File                                                         | Purpose                                                  |
-| ------------------------------------------------------------ | -------------------------------------------------------- |
-| [`schema/schema-definition.md`](schema/schema-definition.md) | Relation schemas, attributes, domains, and primary keys  |
-| [`schema/constraints.md`](schema/constraints.md)             | Integrity constraints and foreign-key deletion decisions |
-| [`analysis/unit1.md`](analysis/unit1.md)                     | Modelling justification and reflection                   |
-| [`schema/erd.png`](schema/erd.png)                           | Entity Relationship Diagram                              |
 
 ## Query Catalogue
 
