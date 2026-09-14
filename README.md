@@ -36,7 +36,7 @@ The schema uses primary keys to provide stable identifiers and foreign keys to m
 | [`schema/constraints.md`](schema/constraints.md)             | Integrity constraints and foreign-key deletion decisions |
 | [`analysis/unit1.md`](analysis/unit1.md)                     | Modelling justification and reflection                   |
 | [`schema/erd.png`](schema/erd.png)                           | Entity Relationship Diagram                              |
-
+[`schema/constraints.md`](schema/constraints.md)
 ## Query Catalogue
 
 Query development begins in Unit 3. This section will be expanded as the project progresses.
