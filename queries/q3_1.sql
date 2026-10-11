@@ -1,10 +1,10 @@
 -- ============================================================
--- Task 3.1 — Establish what the data contains (Airline Booking)
+-- Task 3.1 - Establish what the data contains (Airline Booking)
 -- Database: ex603_data   Theme filter: is_active = 1 AND seat_capacity >= 180
 -- (written as is_active = TRUE because PostgreSQL uses booleans)
 -- ============================================================
 
--- 3.1a Active, high-capacity flights — the producers whose records
+-- 3.1a Active, high-capacity flights - the producers whose records
 --    anchor the audit. Requirement: SELECT, WHERE, ORDER BY, LIMIT.
 SELECT flight_id, flight_number, seat_capacity
 FROM   flights

@@ -1,5 +1,5 @@
 -- ============================================================
--- Task 3.2 — Find the bug (Airline Booking)
+-- Task 3.2 - Find the bug (Airline Booking)
 -- Nullable column used: bookings.cancellation_reason (NULL = no reason recorded).
 -- The dataset already contains NULLs (166 rows), so nothing was inserted.
 -- ============================================================

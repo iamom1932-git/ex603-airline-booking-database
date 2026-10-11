@@ -1,9 +1,9 @@
 -- ============================================================
--- Task 3.3 — Hand the team a corrected query (Airline Booking)
+-- Task 3.3 - Hand the team a corrected query (Airline Booking)
 -- Question: which passengers were involved in disputed bookings?
 -- ============================================================
 
--- 3.3a FORM 1 — subquery with IN.
+-- 3.3a FORM 1 - subquery with IN.
 SELECT passenger_id, passenger_name
 FROM   passengers
 WHERE  passenger_id IN (SELECT passenger_id
@@ -11,7 +11,7 @@ WHERE  passenger_id IN (SELECT passenger_id
                         WHERE  booking_status = 'disputed')
 ORDER BY passenger_id;
 
--- 3.3b FORM 2 — Common Table Expression (WITH) + join.
+-- 3.3b FORM 2 - Common Table Expression (WITH) + join.
 WITH disputed_passengers AS (
     SELECT DISTINCT passenger_id
     FROM   bookings
@@ -22,7 +22,7 @@ FROM   passengers p
 JOIN   disputed_passengers d ON d.passenger_id = p.passenger_id
 ORDER BY p.passenger_id;
 
--- 3.3c FORM 3 — correlated EXISTS (a different subquery form).
+-- 3.3c FORM 3 - correlated EXISTS (a different subquery form).
 SELECT p.passenger_id, p.passenger_name
 FROM   passengers p
 WHERE  EXISTS (SELECT 1
