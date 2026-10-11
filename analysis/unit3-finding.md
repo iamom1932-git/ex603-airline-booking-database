@@ -1,6 +1,7 @@
 # Finding: the "failure rate" behind the frozen route payout
 
-**To:** Dashboard team  **From:** Trust and Data
+**To:** Dashboard team 
+**From:** Trust and Data
 
 **What the dashboard said, and what the data shows.** The dashboard reported that about half of all bookings end as a passenger no-show, and on that basis the route profitability payout was frozen. When we went back to the booking records, we could not find anything close to that. Of 200 bookings, 156 (78%) were confirmed and travelled normally. Another 34 (17%) were cancelled, and only 12 of those, or 6% of all bookings, were cancelled because the passenger did not show up. A further 10 bookings (5%) are under dispute. Even if every cancelled and disputed booking is counted as a problem, the total is 22%, still well under half. The route manager who questioned the number was right.
 
