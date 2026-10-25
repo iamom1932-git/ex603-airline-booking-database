@@ -30,7 +30,91 @@ The schema uses primary keys to provide stable identifiers and foreign keys to m
 
 ## Query Catalogue
 
-Query development begins in Unit 3. This section will be expanded as the project progresses.
+-- 4.1a Q: Across all bookings, what are the count, total, average, min and max fare,
+--    and how many distinct passengers appear? (Aggregate functions)
+SELECT COUNT(*)                     AS booking_count,
+       SUM(fare_paid)               AS total_fare,
+       ROUND(AVG(fare_paid), 2)     AS avg_fare,
+       MIN(fare_paid)               AS min_fare,
+       MAX(fare_paid)               AS max_fare,
+       COUNT(DISTINCT passenger_id) AS distinct_passengers
+FROM   bookings;
+
+-- 4.1a-check Q: The minimum is 0.00. Is every zero fare a cancelled booking?
+SELECT booking_status,
+       COUNT(*)                                AS bookings,
+       COUNT(*) FILTER (WHERE fare_paid = 0)   AS zero_fare_rows,
+       ROUND(AVG(fare_paid), 2)                AS avg_fare
+FROM   bookings
+GROUP BY booking_status
+ORDER BY bookings DESC;
+
+-- 4.1b Q: For each flight, how many bookings and what average fare, busiest first? (GROUP BY)
+SELECT flight_id,
+       COUNT(*)                 AS bookings,
+       ROUND(AVG(fare_paid), 2) AS avg_fare
+FROM   bookings
+GROUP BY flight_id
+ORDER BY bookings DESC, flight_id;
+
+-- 4.1c Q: Which flights have enough bookings for their numbers to mean something? (HAVING)
+--    Threshold 15: flights below it have ~11 or fewer bookings, so one cancellation
+--    swings their rate by 9+ points.
+SELECT flight_id,
+       COUNT(*)                 AS bookings,
+       ROUND(AVG(fare_paid), 2) AS avg_fare
+FROM   bookings
+GROUP BY flight_id
+HAVING COUNT(*) >= 15
+ORDER BY bookings DESC, flight_id;
+
+-- 4.1d Q: How does performance vary by booking country AND flight? (two-dimension GROUP BY)
+SELECT booking_country,
+       flight_id,
+       COUNT(*)                                              AS bookings,
+       COUNT(*) FILTER (WHERE booking_status = 'cancelled')  AS cancelled,
+       ROUND(AVG(fare_paid), 2)                              AS avg_fare
+FROM   bookings
+GROUP BY booking_country, flight_id
+ORDER BY booking_country, flight_id;
+
+-- 4.2a Q: For each flight, how many bookings in total and how many failures,
+--    in one pass with no WHERE clause? (CASE inside aggregate)
+SELECT flight_id,
+       COUNT(*)                                                  AS total_bookings,
+       SUM(CASE WHEN booking_status = 'cancelled' THEN 1 ELSE 0 END) AS failed_bookings,
+       ROUND(100.0 * SUM(CASE WHEN booking_status = 'cancelled' THEN 1 ELSE 0 END)
+             / COUNT(*), 1)                                      AS failure_rate_pct
+FROM   bookings
+GROUP BY flight_id
+ORDER BY failure_rate_pct DESC, flight_id;
+
+-- 4.2b Q: What are the failure counts per region, plus a platform grand total,
+--    without detail rows? (ROLLUP)
+--    Rows with a country = regional subtotals; the row labelled 'PLATFORM TOTAL' = grand total.
+SELECT CASE WHEN GROUPING(booking_country) = 1 THEN 'PLATFORM TOTAL'
+            ELSE booking_country END                              AS region,
+       COUNT(*)                                                   AS total_bookings,
+       SUM(CASE WHEN booking_status = 'cancelled' THEN 1 ELSE 0 END) AS failed_bookings,
+       ROUND(100.0 * SUM(CASE WHEN booking_status = 'cancelled' THEN 1 ELSE 0 END)
+             / COUNT(*), 1)                                       AS failure_rate_pct
+FROM   bookings
+GROUP BY ROLLUP (booking_country)
+ORDER BY GROUPING(booking_country), booking_country;
+
+-- 4.2c Q: Among high-volume flights (15+ bookings), what is the baseline failure rate? (CTE pipeline)
+WITH per_flight AS (
+    SELECT flight_id,
+           COUNT(*) AS bookings,
+           SUM(CASE WHEN booking_status = 'cancelled' THEN 1 ELSE 0 END) AS failures
+    FROM   bookings
+    GROUP BY flight_id
+)
+SELECT COUNT(*)                                         AS high_volume_flights,
+       ROUND(100.0 * SUM(failures) / SUM(bookings), 1)  AS pooled_failure_rate_pct,
+       ROUND(AVG(100.0 * failures / bookings), 1)       AS avg_of_flight_rates_pct
+FROM   per_flight
+WHERE  bookings >= 15;
 
 ## Technical Highlights
 
