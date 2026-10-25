@@ -42,8 +42,6 @@ consistent: same rows in numerator and denominator.]
   whether the platform as a whole needs intervention).]
 - *Row key:* [Rows named by country = regional subtotals;
   the `PLATFORM TOTAL` row = grand total.]
-
-**Part C, the pipeline's question:**
 [What failure rate should we treat as normal for flights with enough volume
 to trust, so we can judge individual flights against it? Step 1 summarises each
 flight; step 2 keeps flights with 15+ bookings and pools them (15.2%).]
