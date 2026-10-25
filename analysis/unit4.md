@@ -45,6 +45,3 @@ consistent: same rows in numerator and denominator.]
 [What failure rate should we treat as normal for flights with enough volume
 to trust, so we can judge individual flights against it? Step 1 summarises each
 flight; step 2 keeps flights with 15+ bookings and pools them (15.2%).]
-
-## Reflection
-[150–250 words, see below]
