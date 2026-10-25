@@ -1,4 +1,4 @@
--- 4.2A Q: For each flight, how many bookings in total and how many failures,
+-- 4.2a Q: For each flight, how many bookings in total and how many failures,
 --    in one pass with no WHERE clause? (CASE inside aggregate)
 SELECT flight_id,
        COUNT(*)                                                  AS total_bookings,
@@ -9,7 +9,7 @@ FROM   bookings
 GROUP BY flight_id
 ORDER BY failure_rate_pct DESC, flight_id;
 
--- 4.2B Q: What are the failure counts per region, plus a platform grand total,
+-- 4.2b Q: What are the failure counts per region, plus a platform grand total,
 --    without detail rows? (ROLLUP)
 --    Rows with a country = regional subtotals; the row labelled 'PLATFORM TOTAL' = grand total.
 SELECT CASE WHEN GROUPING(booking_country) = 1 THEN 'PLATFORM TOTAL'
@@ -22,7 +22,7 @@ FROM   bookings
 GROUP BY ROLLUP (booking_country)
 ORDER BY GROUPING(booking_country), booking_country;
 
--- 4.2C Q: Among high-volume flights (15+ bookings), what is the baseline failure rate? (CTE pipeline)
+-- 4.2c Q: Among high-volume flights (15+ bookings), what is the baseline failure rate? (CTE pipeline)
 WITH per_flight AS (
     SELECT flight_id,
            COUNT(*) AS bookings,
