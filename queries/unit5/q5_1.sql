@@ -29,7 +29,7 @@ SELECT f.flight_id,
        f.flight_number,
        f.seat_capacity,
        a.airport_id,
-       a.name AS airport_name,
+       a.airport_name AS airport_name,
        CASE WHEN f.flight_id IN (2, 6, 11) THEN 'Flagged in Assignment 4'
             WHEN f.flight_id = 9           THEN 'Watch list'
             ELSE '' END AS assignment4_status
@@ -42,7 +42,7 @@ ORDER BY f.flight_id, a.airport_id;
 
 -- 5.1b-2 Q: Do the flagged flights share airports with each other?
 --    Self join on the junction table: pairs of flagged flights using the same airport.
-SELECT a.name AS shared_airport,
+SELECT a.airport_name AS shared_airport,
        r1.flight_id AS flight_a,
        r2.flight_id AS flight_b
 FROM   flight_routes r1
@@ -51,7 +51,7 @@ JOIN   flight_routes r2 ON r2.airport_id = r1.airport_id
 JOIN   airports      a  ON a.airport_id  = r1.airport_id
 WHERE  r1.flight_id IN (2, 6, 11)
   AND  r2.flight_id IN (2, 6, 11)
-ORDER BY a.name, r1.flight_id, r2.flight_id;
+ORDER BY a.airport_name, r1.flight_id, r2.flight_id;
 
 -- 5.1c Q: How do the flagged flights compare with every other flight in size and
 --    activity? Requirement: self join (the per-flight summary joined to itself).

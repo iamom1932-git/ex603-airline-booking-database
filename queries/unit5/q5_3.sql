@@ -15,7 +15,7 @@ SELECT (SELECT COUNT(*) FROM flights)                           AS flights_rows,
 
 -- 5.3a-2 Q: What does the Cartesian product look like? Every flight paired with
 --    every airport (first 15 rows).
-SELECT f.flight_id, f.flight_number, a.airport_id, a.name AS airport_name
+SELECT f.flight_id, f.flight_number, a.airport_id, a.airport_name AS airport_name
 FROM   flights f
 CROSS JOIN airports a
 ORDER BY f.flight_id, a.airport_id
