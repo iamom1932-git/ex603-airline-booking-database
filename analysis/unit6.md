@@ -15,7 +15,7 @@ Items in **[brackets]** are numbers to copy from your own result sets in `ex603_
 
 **Part A: a large delta.** On Flight 6, a delta of [e.g. -30.00] appears where [booking_id] was cancelled (fare 0.00). A large delta in this platform is usually not a price change. It is a cancellation between two paid bookings, or a switch between fare classes. Someone reading it should first check `booking_status` and `cancellation_reason` on the row. If several large drops cluster in time, the operations team should look at what happened on the flight in that period (cancelled departures, payment problems), not at pricing.
 
-**Part B: running total.** A plain `SUM` gives one number: where we are. A running total shows how we got there and when: [e.g. the total reached 50% of the target by (date), then flattened]. It answers "are we on pace for the target?" at any date, and it shows when the pace changed. **Target:** [stated number, e.g. 10,000.00 in fares]. The final running total is [X], which is [Y]% of target (`6.2B-1`).
+**Part B: running total.** A plain `SUM` gives one number: where we are. A running total shows how we got there and when: [e.g. the total reached 50% of the target by (date), then flattened]. It answers "are we on pace for the target?" at any date, and it shows when the pace changed. **Target:** 4,000.00. The final running total is [X], which is [Y]% of target (`6.2B-1`).
 
 **ROWS vs RANGE.** `ROWS` counts physical rows, so rows with the same `ORDER BY` value are handled one at a time. `RANGE` treats rows with equal `ORDER BY` values as peers and puts them all in the frame together, so tied rows get the same running total.
 
