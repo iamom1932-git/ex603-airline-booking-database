@@ -31,14 +31,13 @@ ORDER BY b.booked_at, b.booking_id;
 
 -- 6.2B-1 Q: How is the platform doing over time: the running total of fares, how
 --    close it is to the target, and the recent 7-day average?
---    TARGET: set below. TODO: run 4.1a, read total_fare, pick a round number
---    above it as the stated target and write that number in unit6.md too.
+--    TARGET: set below.
 --    The daily series is built on a full calendar (generate_series) so days
 --    with no bookings appear as zero; that makes "6 PRECEDING" exactly 7 days.
 --    (On bookings-only days, ROWS counts rows, not days, and a 7-row window
 --    would stretch over more than 7 days.)
 WITH params AS (
-    SELECT 10000::numeric AS target_total_fare          -- TODO: replace with your stated target
+    SELECT 4000::numeric AS target_total_fare
 ), bounds AS (
     SELECT MIN(booked_at)::date AS first_day,
            MAX(booked_at)::date AS last_day
