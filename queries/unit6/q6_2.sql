@@ -86,7 +86,6 @@ FROM   bookings;
 -- 6.2C Q: Which flights go quiet for a long stretch and then get booked again?
 --    The gap is computed in a CTE with LAG; WHERE in the outer query keeps only the gaps
 --    (a window function result cannot be filtered in the same query level).
---    TODO: tune the threshold (14 days here) after looking at the largest gaps.
 --    prev_booking_id / booking_id are shown so you can check the IDs either side
 --    of the gap: consecutive IDs suggest nothing was deleted, missing IDs
 --    suggest rows were lost. Also check whether the flight is_active.
