@@ -1,9 +1,5 @@
 # Unit 6 Finding: Is the Failure Problem Getting Better or Worse?
 
-**To:** Leadership team  **From:** Trust and Data
-
-> Fill every **[bracket]** from the query named beside it, then delete this note and any claim your results do not support.
-
 ## Bottom line
 
 Between [first month] and [last month], the failure rate (cancelled bookings as a share of all bookings) [fell from X% to Y% / stayed near X% / rose from X% to Y%]. [One sentence: better, worse, or too noisy to call?] The problem is concentrated on a few flights rather than spread across the platform, so next quarter's effort should go there.
