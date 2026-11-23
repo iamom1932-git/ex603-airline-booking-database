@@ -106,3 +106,23 @@ WHERE  NOT EXISTS (SELECT 1
                    FROM   bookings b
                    WHERE  DATE_TRUNC('month', b.booked_at) = m)
 ORDER BY m;
+
+-- 6.3B-3 Q: Zooming out from noisy months: is the failure rate lower or higher
+--    by quarter? (Used in the Unit 6 closing memo.)
+--    Quarters hold about 3x the bookings of a month, so each rate is steadier.
+WITH quarterly AS (
+    SELECT DATE_TRUNC('quarter', booked_at)                            AS quarter,
+           COUNT(*)                                                    AS bookings,
+           COUNT(*) FILTER (WHERE booking_status = 'cancelled')        AS failures
+    FROM   bookings
+    GROUP BY DATE_TRUNC('quarter', booked_at)
+)
+SELECT quarter::date                                                   AS quarter,
+       bookings,
+       failures,
+       ROUND(100.0 * failures / bookings, 1)                           AS failure_rate_pct,
+       ROUND(100.0 * failures / bookings
+             - LAG(100.0 * failures / bookings) OVER (ORDER BY quarter), 1)
+                                                                       AS change_pct_points
+FROM   quarterly
+ORDER BY quarter;
